@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block nav %}
+
+{% if user_id == account.id %}
+<li><a href="{% url 'profilepage' id=user_id%}" >My Profile</a></li>
+<li><a href="{% url 'editprofile' id=user_id%}" >Edit Profile</a></li>
+<li><a href="{% url 'uploadpicture' %}" >Upload Picture</a></li>
+{% endif %}
+<li role="presentation"><a href="{% url 'allprofiles' %}">View Profiles</a></li>
+<li role="presentation"><a href = "{% url 'login'%}">Log Out</a></li>
+{% endblock %}
+{% block content %}
+
+<h2>Upload a Picture</h2>
+<form method="POST" action = "" enctype="multipart/form-data">
+{%csrf_token%} 
+{{form.as_p}}
+<input type="submit" name="Upload Picture">
+</form>
+{% endblock %}

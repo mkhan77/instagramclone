@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Picture {% endblock %}
+
+{% block nav %}
+<li><a href="{% url 'profilepage' id=user.id%}" >My Profile</a></li>
+<li><a href="{% url 'editprofile' id=account.id%}" >Edit Profile</a></li>
+<li><a href="{% url 'uploadpicture' %}" >Upload Picture</a></li>
+<li role="presentation"><a href="{% url 'allprofiles' %}">View Profiles</a></li>
+<li role="presentation"><a href = "{% url 'login'%}">Log Out</a></li>
+
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'profilepage' id=picture.user.id %}"><button> Back to {{picture.user.user_name}}'s Profile</button></a>
+
+<div>Picture <br><img src="{{picture.image.url}}" class="img-responsive"> <br> 
+<b>{{picture.user.user_name}}</b> - {{picture.caption}}</div>
+<div style="text-align: center;"><b>{{picture.likes}}</b> Likes <br> 
+uploaded {{picture.date_uploaded|timesince}} ago <br>
+
+{% if user not in picture.like_users.all %}
+<a href="{% url 'like' pic_id=picture.id%}"><button>Like</button></a> <br><br>
+{% else %}
+<a href="{% url 'unlike' pic_id=picture.id%}"><button>Unlike</button></a>
+{% endif %}
+
+<div style="margin-bottom: 50px;">
+<h3>Comments</h3>
+<div class = "col-lg-offset-3" style="text-align: left;">
+	{% for comment in picture.comments.all %}
+	<b>{{comment.user}}</b> - {{comment.content}} <br>
+	{% endfor %}
+</div>
+</div>
+
+<!-- Comment Form -->
+<form method="POST" action = '.'>
+{% csrf_token %}
+{{form}} <br>
+<input type = 'submit' value = 'Post Comment'>
+</form>
+
+{% endblock %}

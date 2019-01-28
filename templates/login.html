@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title%}Instagram Login {% endblock %}
+{% block content%}<div class="col-lg-11">
+<img src="{%static 'logo.png' %}" style="width: 175px; height: 51px;">
+<form method="POST" action="">
+{%csrf_token%}
+{{form.as_p}}
+<input type="submit" value="Log in" style="cursor: pointer;">
+<!-- style="background-color: #3897f0; border-color: #3897f0; font-size: 16px; cursor: pointer; 
+border-radius: 3px; width: 300px;" -->
+</form>
+
+{% if message %}
+<br> <b>{{message}}</b> <br> <br>
+{% endif %}
+Don't have an Account? <a href="{% url 'signup'%}"> Sign up </a>
+
+
+</div>
+{%endblock%}

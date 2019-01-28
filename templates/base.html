@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title%}Instagram{%endblock%}</title>
+<!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+
+</head>
+
+
+<body>
+
+
+<ul>
+	<a href="{% url 'signup'%}" style="float: left; margin-left: 100px;">
+		<img src="{%static 'logo.png' %}" style="width: 175px; height: 51px;">
+	</a>
+  {% block nav %}
+  	<li role="presentation"><a href = "{% url 'signup'%}">Sign Up</a></li>
+  	<li role="presentation"><a href = "{% url 'login'%}">Log In</a></li>
+  {% endblock %}
+  
+</ul>
+
+
+
+<div style="margin-top: 30px;" class="container">
+<center>
+<div class="row">
+{%block content%}<div class="col-lg-6" "><img src="{%static 'instagram_home_pic.png' %}" alt="Instagram image" style="width: 400px; height: 570px;"></div>
+<div class="col-lg-6">
+<img src="{%static 'logo.png' %}" style="width: 175px; height: 51px;">
+<form method="POST" action="">
+{%csrf_token%}
+{{form.as_p}}
+<input type="submit" value="Sign Up">
+</form>
+<b>{{message}} </b> <br>
+Have an Account? <a href="{% url 'login'%}"> Log in </a></div>
+{%endblock%}
+</div></center></div>
+<!-- <footer>Django Project Created by Mohammad Khan</footer> -->
+
+
+
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>

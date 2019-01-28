@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %} {{account}}'s Profile Page {% endblock %}
+{% block nav %}
+
+{% if user_id == account.id %}
+<li><a href="{% url 'profilepage' id=user_id%}" >My Profile</a></li>
+<li><a href="{% url 'editprofile' id=user_id%}" >Edit Profile</a></li>
+<li><a href="{% url 'uploadpicture' %}" >Upload Picture</a></li>
+{% endif %}
+
+<li role="presentation"><a href="{% url 'allprofiles' %}">View Profiles</a></li>
+<li role="presentation"><a href = "{% url 'login'%}">Log Out</a></li>
+{% endblock %}
+
+
+{% block content %}
+<br> Logged in as <b>{{user_act}}</b> <br> 
+
+<h2> {{account.user_name}} 
+	{% if account not in user_act.following.all %}
+	<a href="{% url 'follow' followedUser_id=account.id %}"><button>Follow</button></a>
+	{% else %}
+	<a href="{% url 'unfollow' unfollowedUser_id=account.id %}"><button>Unfollow</button></a>
+	{% endif %}
+</h2>
+
+{% if account.profile_pic %}
+Profile Image <br>
+<img src="{{account.profile_pic.url}}" alt="{{account.user_name}}'s Profile"><br>
+{% endif %}
+<b>{{account.posts_num}}</b> Posts
+<b>{{account.followers_num}}</b> Followers
+<b>{{account.following.all|length}}</b> Following<br> <br>
+<b>{{account.full_name|title}}</b> {{account.bio}} <br> <br>
+
+{{account.user_name}} is Following: <br>
+{%for i in account.following.all%}
+<b><a href="{% url 'profilepage' id=i.id %}"> {{i}}</a> </b> <br>
+{%endfor%}
+
+
+{{account.user_name}}'s Followers: <br>
+{%for i in account.followed_by.all%}
+<b><a href="{% url 'profilepage' id=i.id %}"> {{i}}</a> </b> <br>
+{%endfor%}
+
+<!-- have divs here that will display all the images the user has uploaded. -->
+{% if account.picture_library.all %}
+<h3>{{account.full_name|title}}'s Pictures <br></h3>
+{% for img in account.picture_library.all %}
+<div class="col-lg-4 col-md-4">
+<a href="{% url 'showpicture' id=img.id username=account.user_name%}"><img src="{{img.image.url}}" class="img-thumbnail" height="288px" width="288px" ></a> <br>
+Likes: {{img.likes}} <br>
+Comments: {{img.comments.all|length}}
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

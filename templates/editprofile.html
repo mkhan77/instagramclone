@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+{% block nav %}
+<li><a href="{% url 'profilepage' id=account.id%}" >My Profile</a></li>
+<li><a href="{% url 'editprofile' id=account.id%}" >Edit Profile</a></li>
+<li><a href="{% url 'uploadpicture' %}" >Upload Picture</a></li>
+<li role="presentation"><a href="{% url 'allprofiles' %}">View Profiles</a></li>
+<li role="presentation"><a href = "{% url 'login'%}">Log Out</a></li>
+{% endblock %}
+
+{% block content %}
+
+<form method = 'POST' action = '' enctype="multipart/form-data">
+{%csrf_token%}
+{{form.as_p}}
+<input type = 'submit' value = 'Save'>
+</form>
+
+
+<a href="{% url 'profilepage' id=account.id %}" ><button style="cursor: pointer;">Profile Page</button></a> <br>
+
+<b>{{message}}</b>
+{% endblock %}
+
+

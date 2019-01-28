@@ -1,0 +1,44 @@
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    text-align: center;
+    
+}
+
+li {
+    display:inline-block;
+    margin-left: 80px;
+    width:100px;
+    color: #3897f0;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #3897f0;
+    border-radius: 5px;
+    
+}
+
+li a:hover {
+    background-color: #3897f0;
+    color: white;
+    
+}
+body {
+    background-color: #fafafa;
+    /*background: url('instagram_home_pic.png') no-repeat;*/
+}
+
+footer{
+    position: fixed;
+    width: 100%;
+    margin-top: 300px;
+    bottom: 0;
+}

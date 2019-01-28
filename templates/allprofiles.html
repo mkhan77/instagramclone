@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} All Registered Profiles {% endblock %}
+
+{% block nav %}
+<li><a href="{% url 'profilepage' id=user.id%}" >My Profile</a></li>
+<li><a href="{% url 'editprofile' id=user.id%}" >Edit Profile</a></li>
+<li><a href="{% url 'uploadpicture' %}" >Upload Picture</a></li>
+<li role="presentation"><a href="{% url 'allprofiles' %}">View Profiles</a></li>
+<li role="presentation"><a href = "{% url 'login'%}">Log Out</a></li>
+
+{% endblock %}
+
+{% block content %}
+Logged in as <b>{{user.user_name}}</b>
+
+<form method="GET" action=".">
+{% csrf_token %}
+{{form}}
+<input type="submit" value="Search">
+</form>
+
+{% for account in account %}
+<h2> <a href="{% url 'profilepage' id=account.id%}">{{account.user_name}}</a></h2>
+{% if account.profile_pic %}
+Profile Image <br>
+<a href="{% url 'profilepage' id=account.id%}">
+<img src="{{account.profile_pic.url}}" alt="{{account.user_name}}'s Profile" class = "img-responsive" width="300px" height="300px">
+</a>
+<br>
+{% endif %}
+<b>{{account.posts_num}}</b> Posts
+<b>{{account.followers_num}}</b> Followers
+<b>{{account.following_num}}</b> Following<br> <br>
+<b>{{account.full_name|title}}</b> {{account.bio}} <br> <br>
+{% endfor %}
+
+{% endblock %}
